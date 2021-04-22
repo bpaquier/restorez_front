@@ -1,10 +1,17 @@
 import { Button, TextField, Box } from "@material-ui/core/";
-import classnames from "classnames/bind";
 import css from "./styles.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+const getInitialState = (inputs) => {
+  const res = {};
+  inputs.forEach((input) => {
+    res[input.name] = "";
+  });
+
+  return res;
+};
 export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
-  const [values, setValues] = useState({ title });
+  const [values, setValues] = useState(getInitialState(inputs));
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -14,6 +21,11 @@ export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
       return { ...previousState };
     });
   };
+
+  useEffect(() => {
+    console.log(values);
+    return () => {};
+  }, [values]);
 
   return (
     <>
@@ -26,7 +38,7 @@ export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
           }}
         >
           <h2 className={css.titleForm}>{title}</h2>
-          {inputs.map(({ label, name, required, type }) => {
+          {inputs.map(({ label, name, required, type, id }) => {
             return (
               <div className={css.formGroup}>
                 <label className={css.formLabel} htmlFor={name}>
@@ -35,7 +47,7 @@ export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
                 <TextField
                   required={required !== undefined ? required : false}
                   name={name}
-                  key={name}
+                  key={id}
                   id={name}
                   type={type}
                   value={values[name]}
