@@ -101,7 +101,6 @@ export default function RestaurantPage() {
                 retour à la liste
               </Button>
             </div>
-            <div className={css.alert}></div>
           </>
         )}
         {display === "list" && (

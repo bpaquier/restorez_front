@@ -33,9 +33,9 @@ export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
           }}
         >
           <h2 className={css.titleForm}>{title}</h2>
-          {inputs.map(({ label, name, required, type, id }) => {
+          {inputs.map(({ label, name, required, type, id }, index) => {
             return (
-              <div className={css.formGroup}>
+              <div className={css.formGroup} key={index}>
                 <label className={css.formLabel} htmlFor={name}>
                   {label}
                 </label>

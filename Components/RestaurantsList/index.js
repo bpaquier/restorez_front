@@ -28,8 +28,8 @@ function RestaurantsList({ list }) {
             <TableCell component="th" scope="row">
               {restaurant.name}
             </TableCell>
-            <TableCell align="left">{restaurant.adress}</TableCell>
-            <TableCell align="left">{restaurant.opening_time}</TableCell>
+            <TableCell align="left">{restaurant?.adress}</TableCell>
+            <TableCell align="left">{restaurant?.opening_time}</TableCell>
             <TableCell align="right">
               <Button
                 variant="contained"
