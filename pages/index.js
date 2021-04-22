@@ -1,13 +1,14 @@
-import React from "react";
-import BaseComponent from "../Components/@BaseComponent";
+import CustomHead from "../Components/Head/index";
 import classnames from "classnames/bind";
 import css from "./styles.module.scss";
+
 const cx = classnames.bind(css);
 
 export default function Home() {
   return (
-    <div>
-      <BaseComponent className={css.green} />
-    </div>
+    <>
+      <CustomHead />
+      <main className={css.pageContainer}></main>
+    </>
   );
 }

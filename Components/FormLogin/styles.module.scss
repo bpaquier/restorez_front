@@ -1,0 +1,25 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  gap: 26px;
+}
+
+.titleForm {
+  text-align: left;
+  font-size: 26px;
+  font-weight: bold;
+  font-family: "Roboto";
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+
+  align-content: center;
+  flex-direction: column;
+  width: 80vw;
+  max-width: 900px;
+  margin: auto;
+}
