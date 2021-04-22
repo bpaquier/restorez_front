@@ -28,9 +28,9 @@ export default function ServicesList({ servicesList }) {
             <Button
               variant="contained"
               color="primary"
-              href="#contained-buttons"
+              href={`/service/${service?.id_service}`}
             >
-              Ajouter une réservation
+              Voir les réservations
             </Button>
           </TableCell>
         </TableRow>

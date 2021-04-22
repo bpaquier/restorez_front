@@ -29,6 +29,7 @@ export default function ReservationsPage() {
   const [display, setDisplay] = useState("list");
   const [reservationsList, setReservationsList] = useState(null);
   const [serviceInfos, setServiceInfos] = useState(null);
+  console.log(reservationsList);
   useEffect(() => {
     if (serviceId) {
       getReservations(serviceId);
@@ -70,8 +71,16 @@ export default function ReservationsPage() {
       .get(`http://localhost:5000/reservations/id-service/${id}`, {
         headers: headers,
       })
-      .then((rep) => setReservationsList(rep?.data?.data))
-      .catch((rep) => console.log(rep?.response));
+      .then((rep) => {
+        console.log(rep?.data?.data);
+        setReservationsList(rep?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status === 404) {
+          setReservationsList(null);
+        }
+      });
   };
 
   const formatDate = (arg) => {
@@ -104,9 +113,14 @@ export default function ReservationsPage() {
       })
       .catch((err) => {
         const message = err?.response?.data?.errors?.[0];
-        message?.forEach((error) => {
-          toast?.error(error?.param + " : " + error?.msg);
-        });
+        console.log(message);
+        if (Array.isArray(message)) {
+          message?.forEach((error) => {
+            toast?.error(error?.param + " : " + error?.msg);
+          });
+        } else {
+          toast?.error(message);
+        }
       });
   };
 
@@ -287,9 +301,6 @@ export default function ReservationsPage() {
                       ]}
                     />
                   </div>
-                  {/*  <button role="link" onClick={handlePayment}>
-                    Checkout
-                  </button> */}
 
                   <Button
                     variant="contained"
@@ -311,6 +322,3 @@ export default function ReservationsPage() {
     )
   );
 }
-
-/*
- */
