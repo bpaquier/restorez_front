@@ -11,7 +11,7 @@ export default function Home() {
 
     // Call your backend to create the Checkout Session
     const response = await fetch(
-      "http://localhost:5000/create-checkout-session",
+      "http://localhost:5000/reservations/checkout",
       {
         headers: {
           Accept: "application/json",
@@ -19,14 +19,18 @@ export default function Home() {
         },
         method: "POST",
         body: JSON.stringify({
-          amount: 4000,
+          amount: 2050,
           currency: "eur",
           name: "BARBYLONE",
+          reservation_id: 76,
+          success_url: "https://example.com/success",
+          cancel_url: "https://example.com/cancel",
         }),
       }
     );
 
     const session = await response.json();
+    console.log(session);
 
     // When the customer clicks on the button, redirect them to Checkout.
     const result = await stripe.redirectToCheckout({
