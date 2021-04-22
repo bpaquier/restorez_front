@@ -36,7 +36,7 @@ function RestaurantsList({ list }) {
                 color="primary"
                 href={`/restaurant/${restaurant?.id_restaurant}`}
               >
-                Link
+                Voir les services
               </Button>
             </TableCell>
           </TableRow>
