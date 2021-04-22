@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const cx = classnames.bind(css);
 
-export default function FormLogin({ handleSubmit }) {
+export default function FormLogin({ title, handleSubmit }) {
   const inputs = [
     {
       label: "Email",
@@ -42,7 +42,11 @@ export default function FormLogin({ handleSubmit }) {
             handleSubmit(values);
           }}
         >
+<<<<<<< HEAD
           <h2 className={css.titleForm}>Connexion</h2>
+=======
+          <h2 className={css.titleForm}>{title}</h2>
+>>>>>>> feat/signin
           {inputs.map((input) => {
             return (
               <TextField
