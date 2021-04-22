@@ -52,6 +52,7 @@ export default function FormLogin({ title, handleSubmit }) {
                 type={input.type}
                 value={values[input.name]}
                 onChange={handleChange}
+                defaultValue=''
               />
             );
           })}

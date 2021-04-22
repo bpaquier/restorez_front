@@ -6,12 +6,15 @@ import classnames from "classnames/bind";
 import css from "./styles.module.scss";
 import { userContext } from "../../context/userContext";
 import { useContext } from "react";
+import { useRouter } from "next/router"
 
 export default function Nav() {
   const { user, setUser } = useContext(userContext);
+  const router = useRouter();
 
   const signOut = () => {
     setUser({});
+    router.push('/login')
   };
   return (
     <header className={css.nav}>
@@ -33,7 +36,7 @@ export default function Nav() {
           </div>
         </div>
       ) : (
-        <p>Guest</p>
+        <p>Bienvenue sur Restorez</p>
       )}
     </header>
   );
