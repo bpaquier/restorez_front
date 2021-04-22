@@ -19,7 +19,8 @@ export default function Home() {
   }, [user]);
 
   return (
-    user && (
+    user &&
+    Object.keys(user).length > 0 && (
       <>
         <CustomHead />
         <main className={css.pageContainer}>
