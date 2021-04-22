@@ -1,22 +1,34 @@
 import axios from "axios";
+import { useContext } from "react";
+
 import CustomHead from "../../Components/Head/index";
-import classnames from "classnames/bind";
 import css from "../styles.module.scss";
 import FormLogin from "../../Components/FormLogin";
-
-const cx = classnames.bind(css);
+import { userContext } from "../../context/userContext";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const { setUser } = useContext(userContext);
+  const router = useRouter();
+
   const handleSumbit = async (values) => {
     const { email, password } = values;
 
     try {
-      const reponse = await axios.post("http://localhost:5000/auth", {
+      const response = await axios.post("http://localhost:5000/auth", {
         email,
         password,
       });
 
-      console.log(reponse.data.data.accessToken);
+      const { user, accessToken } = response.data.data;
+
+      if (response.data.status === 200) {
+        setUser({
+          ...user,
+          accessToken,
+        });
+        router.push("/");
+      }
     } catch (e) {}
   };
   return (
