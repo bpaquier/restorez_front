@@ -10,6 +10,7 @@ import axios from "axios";
 import { userContext } from "../../context/userContext";
 import Button from "@material-ui/core/Button";
 import Form from "../../Components/Form";
+import { TextField, Box } from "@material-ui/core/";
 
 import classnames from "classnames/bind";
 import css from "./styles.module.scss";
@@ -93,7 +94,6 @@ export default function ReservationsPage() {
         headers: headers,
       })
       .then((rep) => {
-        console.log(rep);
         if (rep?.data?.status === 200) {
           getReservations(serviceId);
           getServiceInfos(serviceId);
@@ -110,9 +110,11 @@ export default function ReservationsPage() {
       });
   };
 
-  const handlePayment = async (values) => {
+  const handlePayment = async (value) => {
+    // Get Stripe.js instance
     const stripe = await stripePromise;
 
+    // Call your backend to create the Checkout Session
     const response = await fetch(
       "http://localhost:5000/reservations/checkout",
       {
@@ -122,12 +124,12 @@ export default function ReservationsPage() {
         },
         method: "POST",
         body: JSON.stringify({
-          ...values,
+          amount: parseFloat(value?.amount) * 100,
           currency: "eur",
           name: restaurantName,
           reservation_id: reservationId,
-          success_url: `http://localhost:5000/service/${serviceId}`,
-          cancel_url: `http://localhost:5000/service/${serviceId}`,
+          success_url: `http://localhost:3000/service/${serviceId}`,
+          cancel_url: `http://localhost:3000/service/${serviceId}`,
         }),
       }
     );
@@ -137,9 +139,28 @@ export default function ReservationsPage() {
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
     });
+
     if (result.error) {
       toast.error("Network error");
     }
+  };
+
+  const deleteReservation = async (id) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.accessToken}`,
+    };
+
+    axios
+      .delete(`http://localhost:5000/reservations/id-reservation/${id}`, {
+        headers: headers,
+      })
+      .then((rep) => {
+        getReservations(serviceId);
+        getServiceInfos(serviceId);
+        toast.success("Reservation supprimée");
+      })
+      .catch((err) => console.log(err?.response));
   };
 
   return (
@@ -195,7 +216,10 @@ export default function ReservationsPage() {
         </div>
         {display === "list" &&
           (reservationsList?.length > 0 ? (
-            <ReservationsList reservationsList={reservationsList} />
+            <ReservationsList
+              reservationsList={reservationsList}
+              deleteReservation={deleteReservation}
+            />
           ) : (
             <p>Aucunes reservations pour ce service</p>
           ))}
@@ -263,6 +287,10 @@ export default function ReservationsPage() {
                       ]}
                     />
                   </div>
+                  {/*  <button role="link" onClick={handlePayment}>
+                    Checkout
+                  </button> */}
+
                   <Button
                     variant="contained"
                     color="secondary"
@@ -283,3 +311,6 @@ export default function ReservationsPage() {
     )
   );
 }
+
+/*
+ */

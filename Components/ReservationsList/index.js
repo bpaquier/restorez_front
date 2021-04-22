@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 
 const cx = classnames.bind(css);
 
-function ReservationsList({ reservationsList }) {
+function ReservationsList({ reservationsList, deleteReservation }) {
   return (
     <Table aria-label="simple table" className={css.table}>
       <TableHead>
@@ -56,7 +56,13 @@ function ReservationsList({ reservationsList }) {
               </Button>
             </TableCell>
             <TableCell align="right">
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  deleteReservation(reservation?.id_reservation);
+                }}
+              >
                 supprimer
               </Button>
             </TableCell>
