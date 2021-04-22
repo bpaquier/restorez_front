@@ -34,7 +34,7 @@ function RestaurantsList({ list }) {
               <Button
                 variant="contained"
                 color="primary"
-                href="#contained-buttons"
+                href={`/restaurant/${restaurant?.id_restaurant}`}
               >
                 Link
               </Button>
