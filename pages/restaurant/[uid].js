@@ -86,16 +86,16 @@ export default function index() {
       <main>
         {display === "list" ? (
           <>
-            <h1 className={css.title}>
-              Vos services du restaurant : {restaurantName}
+            <div className={css.header}>
+              <h1 className={css.title}>Vos services : "{restaurantName}"</h1>
               <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setDisplay("form")}
-              >
-                Ajouter un service
-              </Button>
-            </h1>
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setDisplay("form")}
+                >
+                  Ajouter un service
+                </Button>
+            </div>
             <section>
               {servicesList && (
                 <Table aria-label="simple table" className={css.table}>
@@ -106,6 +106,7 @@ export default function index() {
                       <TableCell align="left">Heure de fin</TableCell>
                       <TableCell align="left">Capacité du service</TableCell>
                       <TableCell align="left">Couverts reservés</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
