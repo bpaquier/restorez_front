@@ -10,10 +10,12 @@ export default function FormLogin({ handleSubmit }) {
     {
       label: "Email",
       name: "email",
+      type: "email",
     },
     {
       label: "Mot de passe",
       name: "password",
+      type: "password",
     },
   ];
   const [values, setValues] = useState({
@@ -40,7 +42,7 @@ export default function FormLogin({ handleSubmit }) {
             handleSubmit(values);
           }}
         >
-          <h2 className={css.titleForm}>Se connecter</h2>
+          <h2 className={css.titleForm}>Connexion</h2>
           {inputs.map((input) => {
             return (
               <TextField
@@ -49,6 +51,7 @@ export default function FormLogin({ handleSubmit }) {
                 key={input.name}
                 id={input.name}
                 label={input.label}
+                type={input.type}
                 value={values[input.name]}
                 onChange={handleChange}
               />
@@ -61,7 +64,7 @@ export default function FormLogin({ handleSubmit }) {
             variant="contained"
             color="primary"
           >
-            Primary
+            Se connecter
           </Button>
         </form>
       </div>
