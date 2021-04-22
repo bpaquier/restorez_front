@@ -35,7 +35,7 @@ export default function Login() {
     <>
       <CustomHead />
       <main className={css.pageContainer}>
-        <FormLogin title={'Connexion'} handleSubmit={handleSumbit} />
+        <FormLogin title={"Connexion"} handleSubmit={handleSumbit} />
       </main>
     </>
   );
