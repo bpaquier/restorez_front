@@ -1,9 +1,7 @@
 import { Button, TextField } from "@material-ui/core/";
-import classnames from "classnames/bind";
+
 import css from "./styles.module.scss";
 import { useState } from "react";
-
-const cx = classnames.bind(css);
 
 export default function FormLogin({ title, handleSubmit }) {
   const inputs = [
