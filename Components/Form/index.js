@@ -22,11 +22,6 @@ export default function FormLogin({ title, handleSubmit, inputs, submitText }) {
     });
   };
 
-  useEffect(() => {
-    console.log(values);
-    return () => {};
-  }, [values]);
-
   return (
     <>
       <div className={css.formContainer}>
