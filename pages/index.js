@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Router from "next/router";
-
+import { API_URL } from "../config";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { userContext } from "../context/userContext";
@@ -14,6 +14,7 @@ import css from "./styles.module.scss";
 const cx = classnames.bind(css);
 
 export default function RestaurantPage() {
+  console.log(API_URL);
   const { user } = useContext(userContext);
 
   const [display, setDisplay] = useState("list");
@@ -32,7 +33,7 @@ export default function RestaurantPage() {
 
   const getRestaurants = async (id) => {
     axios
-      .get(`http://localhost:5000/restaurants/all-restaurants/${id}`)
+      .get(`${API_URL}/restaurants/all-restaurants/${id}`)
       .then((rep) => setRestaurantsList(rep?.data?.data))
       .catch((err) => {
         console.log(err?.response);
@@ -49,7 +50,7 @@ export default function RestaurantPage() {
       Authorization: `Bearer ${user?.accessToken}`,
     };
     axios
-      .post(`http://localhost:5000/restaurants`, data, {
+      .post(`${API_URL}/restaurants`, data, {
         headers: headers,
       })
       .then((rep) => {
@@ -72,7 +73,7 @@ export default function RestaurantPage() {
     };
 
     axios
-      .delete(`http://localhost:5000/restaurants/${id}`, {
+      .delete(`${API_URL}/restaurants/${id}`, {
         headers: headers,
       })
       .then((rep) => {

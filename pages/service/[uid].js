@@ -5,6 +5,7 @@ const stripePromise = loadStripe(
   "pk_test_51IiewUHv3LwBSOHcbDnAslOArSH2dGjSoSa2oVhfsPSo8tODPIWYvUhf2AhkYba3Py4nIgudzUCbRMYxriEsegCo00FQtPH9Kh"
 );
 
+import { API_URL } from "../../config";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { userContext } from "../../context/userContext";
@@ -44,7 +45,7 @@ export default function ReservationsPage() {
   }, [serviceInfos]);
 
   const getRestaurantName = (id) => {
-    axios.get(`http://localhost:5000/restaurants/${id}`).then((rep) => {
+    axios.get(`${API_URL}/restaurants/${id}`).then((rep) => {
       setRestaurantName(rep?.data?.data?.name);
     });
   };
@@ -57,7 +58,7 @@ export default function ReservationsPage() {
 
   const getServiceInfos = async (id) => {
     axios
-      .get(`http://localhost:5000/services/${id}`)
+      .get(`${API_URL}/services/${id}`)
       .then((rep) => setServiceInfos(rep?.data?.data))
       .catch((rep) => console.log(rep?.response));
   };
@@ -68,7 +69,7 @@ export default function ReservationsPage() {
       Authorization: `Bearer ${user?.accessToken}`,
     };
     axios
-      .get(`http://localhost:5000/reservations/id-service/${id}`, {
+      .get(`${API_URL}/reservations/id-service/${id}`, {
         headers: headers,
       })
       .then((rep) => {
@@ -99,7 +100,7 @@ export default function ReservationsPage() {
     };
 
     axios
-      .post(`http://localhost:5000/reservations`, data, {
+      .post(`${API_URL}/reservations`, data, {
         headers: headers,
       })
       .then((rep) => {
@@ -129,24 +130,21 @@ export default function ReservationsPage() {
     const stripe = await stripePromise;
 
     // Call your backend to create the Checkout Session
-    const response = await fetch(
-      "http://localhost:5000/reservations/checkout",
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          amount: parseFloat(value?.amount) * 100,
-          currency: "eur",
-          name: restaurantName,
-          reservation_id: reservationId,
-          success_url: `http://localhost:3000/service/${serviceId}`,
-          cancel_url: `http://localhost:3000/service/${serviceId}`,
-        }),
-      }
-    );
+    const response = await fetch(`${API_URL}/reservations/checkout`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        amount: parseFloat(value?.amount) * 100,
+        currency: "eur",
+        name: restaurantName,
+        reservation_id: reservationId,
+        success_url: `http://localhost:3000/service/${serviceId}`,
+        cancel_url: `http://localhost:3000/service/${serviceId}`,
+      }),
+    });
 
     const session = await response.json();
 
@@ -166,7 +164,7 @@ export default function ReservationsPage() {
     };
 
     axios
-      .delete(`http://localhost:5000/reservations/id-reservation/${id}`, {
+      .delete(`${API_URL}/reservations/id-reservation/${id}`, {
         headers: headers,
       })
       .then((rep) => {

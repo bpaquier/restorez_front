@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 
+import { API_URL } from "../../config";
 import CustomHead from "../../Components/Head/index";
 import css from "./styles.module.scss";
 import FormLogin from "../../Components/FormLogin";
@@ -16,7 +17,7 @@ export default function Login() {
     const { email, password } = values;
 
     try {
-      const response = await axios.post("http://localhost:5000/auth", {
+      const response = await axios.post(`${API_URL}/auth`, {
         email,
         password,
       });

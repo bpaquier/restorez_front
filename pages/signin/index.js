@@ -4,15 +4,15 @@ import classnames from "classnames/bind";
 import css from "../styles.module.scss";
 import FormLogin from "../../Components/FormLogin";
 import { useRouter } from "next/router";
+import { API_URL } from "../../config";
 
 export default function Signin() {
-
   const router = useRouter();
 
   const handleSubmit = async (values) => {
     const { email, password } = values;
     try {
-      const response = await axios.post("http://localhost:5000/restaurateurs", {
+      const response = await axios.post(`${API_URL}/restaurateurs`, {
         email,
         password,
       });

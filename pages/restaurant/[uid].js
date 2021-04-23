@@ -5,6 +5,7 @@ import CustomHead from "../../Components/Head/index";
 import { userContext } from "../../context/userContext";
 import Form from "../../Components/Form";
 import toast, { Toaster } from "react-hot-toast";
+import { API_URL } from "../../config";
 
 import classnames from "classnames/bind";
 import css from "./styles.module.scss";
@@ -29,14 +30,14 @@ export default function index() {
 
   const getServices = async (uid) => {
     axios
-      .get(`http://localhost:5000/services/id-restaurant/${uid}`)
+      .get(`${API_URL}/services/id-restaurant/${uid}`)
       .then((rep) => setServicesList(rep?.data?.data))
       .catch((err) => console.log(err.response));
   };
 
   const getRestaurantById = async (uid) => {
     return await axios
-      .get(`http://localhost:5000/restaurants/${uid}`)
+      .get(`${API_URL}/restaurants/${uid}`)
       .then((rep) => rep.data);
   };
 
@@ -47,7 +48,7 @@ export default function index() {
       Authorization: `Bearer ${user?.accessToken}`,
     };
     axios
-      .post(`http://localhost:5000/services`, data, {
+      .post(`${API_URL}/services`, data, {
         headers: headers,
       })
       .then((rep) => {
@@ -80,7 +81,7 @@ export default function index() {
     };
 
     axios
-      .delete(`http://localhost:5000/services/${id}`, {
+      .delete(`${API_URL}/services/${id}`, {
         headers: headers,
       })
       .then((rep) => {
