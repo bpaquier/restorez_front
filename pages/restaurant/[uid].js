@@ -7,7 +7,7 @@ import Form from "../../Components/Form";
 import toast, { Toaster } from "react-hot-toast";
 
 import classnames from "classnames/bind";
-import css from "../styles.module.scss";
+import css from "./styles.module.scss";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -73,6 +73,23 @@ export default function index() {
     }
   }, [uid]);
 
+  const deleteService = (id) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.accessToken}`,
+    };
+
+    axios
+      .delete(`http://localhost:5000/services/${id}`, {
+        headers: headers,
+      })
+      .then((rep) => {
+        getServices(uid);
+        toast.success("Service supprimé");
+      })
+      .catch((err) => console.log(err?.response));
+  }
+
   return (
     <>
       <CustomHead />
@@ -101,10 +118,11 @@ export default function index() {
                       <TableCell align="left">Capacité du service</TableCell>
                       <TableCell align="left">Couverts reservés</TableCell>
                       <TableCell></TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <ServicesList servicesList={servicesList} />
+                    <ServicesList servicesList={servicesList} deleteService={deleteService} />
                   </TableBody>
                 </Table>
               )}

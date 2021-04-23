@@ -25,7 +25,7 @@ export default function Nav() {
       {user && Object.keys(user).length > 0 ? (
         <div className={css.navContent}>
           <div className={css.navUser}>
-            <AccountCircleIcon fontSize="2rem" />
+            <AccountCircleIcon className={css.navUserIcon} />
             <p className={css.navText}>{user?.email}</p>
           </div>
           <a onClick={signOut} className={css.navLink}>Se déconnecter</a>
