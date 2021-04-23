@@ -6,21 +6,23 @@ import classnames from "classnames/bind";
 import css from "./styles.module.scss";
 import { userContext } from "../../context/userContext";
 import { useContext } from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 export default function Nav() {
   const { user, setUser } = useContext(userContext);
   const router = useRouter();
 
   const signOut = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    localStorage.removeItem("restorez_user");
     setUser({});
-    router.push('/login')
+
+    router.push("/login");
   };
   return (
     <header className={css.nav}>
       <a href="/">
-        <img className={css.navLogo} src={'/logo.png'} />
+        <img className={css.navLogo} src={"/logo.png"} />
       </a>
       {user && Object.keys(user).length > 0 ? (
         <div className={css.navContent}>
@@ -28,12 +30,16 @@ export default function Nav() {
             <AccountCircleIcon className={css.navUserIcon} />
             <p className={css.navText}>{user?.email}</p>
           </div>
-          <a onClick={signOut} className={css.navLink}>Se déconnecter</a>
+          <a onClick={signOut} className={css.navLink}>
+            Se déconnecter
+          </a>
         </div>
       ) : (
-        <div className ={css.navContent}>
+        <div className={css.navContent}>
           <p className={css.navText}>Bienvenue sur Restorez</p>
-          <a className={css.navLink} href='/signin'>Créer un compte</a>
+          <a className={css.navLink} href="/signin">
+            Créer un compte
+          </a>
         </div>
       )}
     </header>

@@ -45,7 +45,7 @@ function RestaurantsList({ list, deleteRestaurant }) {
                 variant="contained"
                 color="secondary"
                 onClick={() => {
-                  deleteRestaurant(restaurant?.id_restaurant)
+                  deleteRestaurant(restaurant?.id_restaurant);
                 }}
               >
                 supprimer

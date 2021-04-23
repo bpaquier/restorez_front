@@ -88,7 +88,8 @@ export default function index() {
         toast.success("Service supprimé");
       })
       .catch((err) => console.log(err?.response));
-  }
+  };
+  console.log(servicesList);
 
   return (
     <>
@@ -112,7 +113,7 @@ export default function index() {
               </Button>
             </div>
             <section>
-              {servicesList && (
+              {servicesList && servicesList?.length > 0 ? (
                 <Table aria-label="simple table" className={css.table}>
                   <TableHead>
                     <TableRow>
@@ -126,9 +127,14 @@ export default function index() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <ServicesList servicesList={servicesList} deleteService={deleteService} />
+                    <ServicesList
+                      servicesList={servicesList}
+                      deleteService={deleteService}
+                    />
                   </TableBody>
                 </Table>
+              ) : (
+                <div>Créez votre premier service 🍽️</div>
               )}
             </section>
           </>

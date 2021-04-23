@@ -80,7 +80,7 @@ export default function RestaurantPage() {
         toast.success("Restaurant supprimé");
       })
       .catch((err) => console.log(err?.response));
-  }
+  };
 
   return (
     user &&
@@ -139,7 +139,14 @@ export default function RestaurantPage() {
                 Ajouter un restaurant
               </Button>
             </div>
-            {restaurantsList && <RestaurantsList list={restaurantsList} deleteRestaurant={deleteRestaurant} />}
+            {restaurantsList ? (
+              <RestaurantsList
+                list={restaurantsList}
+                deleteRestaurant={deleteRestaurant}
+              />
+            ) : (
+              <div>Ajouter votre premier restaurant 👨‍🍳</div>
+            )}
           </>
         )}
       </main>
