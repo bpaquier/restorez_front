@@ -3,7 +3,7 @@ import { Button, TextField } from "@material-ui/core/";
 import css from "./styles.module.scss";
 import { useState } from "react";
 
-export default function FormLogin({ title, handleSubmit }) {
+export default function FormLogin({ title, handleSubmit, textSubmit }) {
   const inputs = [
     {
       label: "Email",
@@ -52,7 +52,7 @@ export default function FormLogin({ title, handleSubmit }) {
                 type={input.type}
                 value={values[input.name]}
                 onChange={handleChange}
-                defaultValue=''
+                defaultValue=""
               />
             );
           })}
@@ -63,7 +63,7 @@ export default function FormLogin({ title, handleSubmit }) {
             variant="contained"
             color="primary"
           >
-            Se connecter
+            {textSubmit}
           </Button>
         </form>
       </div>

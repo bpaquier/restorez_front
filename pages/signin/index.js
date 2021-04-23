@@ -31,6 +31,7 @@ export default function Signin() {
         <FormLogin
           title={"Nouvel utilisateur"}
           handleSubmit={handleSubmit}
+          textSubmit={"Créer un compte"}
         ></FormLogin>
       </main>
     </>
