@@ -34,21 +34,28 @@ export default function Login() {
   };
   const goMainPage = () => {
     router.push("/");
-  }
+  };
+  console.log(user);
   return (
-      <>
-        <CustomHead />
-        <main className={css.pageContainer}>
-          {user && Object.keys(user).length === 0 ? (
-            <FormLogin title={"Connexion"} handleSubmit={handleSumbit} />
-          ) : (
-            <div className={css.alreadyLogContainer}>
-              <p className={css.alreadyLogButton}>Vous êtes déjà connecté</p>
-              <Button onClick={goMainPage} variant="contained"
-              color="primary">Liste des restaurants</Button>
-            </div>
-          )}
-        </main>
-      </>
+    <>
+      <CustomHead />
+      <main className={css.pageContainer}>
+        {!user || Object.keys(user).length === 0 ? (
+          <FormLogin title={"Connexion"} handleSubmit={handleSumbit} />
+        ) : (
+          <div className={css.alreadyLogContainer}>
+            <p className={css.alreadyLogButton}>Vous êtes déjà connecté</p>
+            <Button
+              onClick={goMainPage}
+              variant="contained"
+              href={`/`}
+              color="primary"
+            >
+              Liste des restaurants
+            </Button>
+          </div>
+        )}
+      </main>
+    </>
   );
 }

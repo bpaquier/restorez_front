@@ -182,6 +182,11 @@ export default function ReservationsPage() {
     Object.keys(user).length !== 0 && (
       <main>
         <Toaster position="bottom-center" />
+        <button className={css.backButton}>
+          <a href={`/restaurant/${serviceInfos?.id_restaurant}`}>
+            Retour à la liste des services du restaurant " {restaurantName} "
+          </a>
+        </button>
         <div className={css.serviceInfos}>
           <div className={css.header}>
             <h1 className={css.title}>
@@ -189,7 +194,6 @@ export default function ReservationsPage() {
                 ? "Vos réservations"
                 : "Ajouter une réservation"}
             </h1>
-            <h3>{restaurantName}</h3>
             {display === "list" ? (
               <Button
                 variant="contained"

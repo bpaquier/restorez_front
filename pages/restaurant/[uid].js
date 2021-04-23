@@ -76,8 +76,12 @@ export default function index() {
   return (
     <>
       <CustomHead />
+
       <main>
         <Toaster position="bottom-center" />
+        <button className={css.backButton}>
+          <a href="/">Retour à la liste des restaurants</a>
+        </button>
         {display === "list" ? (
           <>
             <div className={css.header}>
