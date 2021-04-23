@@ -32,7 +32,10 @@ export default function index() {
     axios
       .get(`${API_URL}/services/id-restaurant/${uid}`)
       .then((rep) => setServicesList(rep?.data?.data))
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response);
+        setServicesList([]);
+      });
   };
 
   const getRestaurantById = async (uid) => {
