@@ -42,7 +42,11 @@ export default function Login() {
       <CustomHead />
       <main className={css.pageContainer}>
         {!user || Object.keys(user).length === 0 ? (
-          <FormLogin title={"Connexion"} handleSubmit={handleSumbit} />
+          <FormLogin
+            title={"Connexion"}
+            handleSubmit={handleSumbit}
+            textSubmit={"Se connecter"}
+          />
         ) : (
           <div className={css.alreadyLogContainer}>
             <p className={css.alreadyLogButton}>Vous êtes déjà connecté</p>
