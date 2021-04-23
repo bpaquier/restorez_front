@@ -28,11 +28,10 @@ export default function index() {
   const { user } = useContext(userContext);
 
   const getServices = async (uid) => {
-    if (uid) {
-      return await axios
-        .get(`http://localhost:5000/services/id-restaurant/${uid}`)
-        .then((rep) => rep.data);
-    }
+    axios
+      .get(`http://localhost:5000/services/id-restaurant/${uid}`)
+      .then((rep) => setServicesList(rep?.data?.data))
+      .catch((err) => console.log(err.response));
   };
 
   const getRestaurantById = async (uid) => {
@@ -53,15 +52,11 @@ export default function index() {
       })
       .then((rep) => {
         if (rep?.data?.status === 200) {
+          //getRestaurants(user?.id);
+          getServices(uid);
           setDisplay("list");
-          getRestaurants(user?.id);
           toast.success("Restaurant bien enregistré");
         }
-      })
-      .then(() => {
-        getServices(uid).then((data) => {
-          setServicesList(data.data);
-        });
       })
       .catch((err) => {
         const message = err?.response?.data?.errors?.[0];
@@ -71,9 +66,7 @@ export default function index() {
 
   useEffect(() => {
     if (uid) {
-      getServices(uid).then((data) => {
-        setServicesList(data.data);
-      });
+      getServices(uid);
       getRestaurantById(uid).then((data) => {
         setRestaurantName(data.data.name);
       });
@@ -84,17 +77,18 @@ export default function index() {
     <>
       <CustomHead />
       <main>
+        <Toaster position="bottom-center" />
         {display === "list" ? (
           <>
             <div className={css.header}>
               <h1 className={css.title}>Vos services : "{restaurantName}"</h1>
               <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setDisplay("form")}
-                >
-                  Ajouter un service
-                </Button>
+                variant="contained"
+                color="primary"
+                onClick={() => setDisplay("form")}
+              >
+                Ajouter un service
+              </Button>
             </div>
             <section>
               {servicesList && (
