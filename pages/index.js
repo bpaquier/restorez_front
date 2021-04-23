@@ -33,7 +33,13 @@ export default function RestaurantPage() {
   const getRestaurants = async (id) => {
     axios
       .get(`http://localhost:5000/restaurants/all-restaurants/${id}`)
-      .then((rep) => setRestaurantsList(rep?.data?.data));
+      .then((rep) => setRestaurantsList(rep?.data?.data))
+      .catch((err) => {
+        console.log(err?.response);
+        if (err?.response?.status === 404) {
+          setRestaurantsList(null);
+        }
+      });
   };
 
   const handleSubmit = (values) => {
@@ -58,6 +64,24 @@ export default function RestaurantPage() {
         toast.error(message);
       });
   };
+
+  const deleteRestaurant = (id) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.accessToken}`,
+    };
+
+    axios
+      .delete(`http://localhost:5000/restaurants/${id}`, {
+        headers: headers,
+      })
+      .then((rep) => {
+        getRestaurants(user?.id);
+        toast.success("Restaurant supprimé");
+      })
+      .catch((err) => console.log(err?.response));
+  }
+
   return (
     user &&
     Object.keys(user).length !== 0 && (
@@ -115,7 +139,7 @@ export default function RestaurantPage() {
                 Ajouter un restaurant
               </Button>
             </div>
-            {restaurantsList && <RestaurantsList list={restaurantsList} />}
+            {restaurantsList && <RestaurantsList list={restaurantsList} deleteRestaurant={deleteRestaurant} />}
           </>
         )}
       </main>

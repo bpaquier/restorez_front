@@ -1,36 +1,48 @@
 .nav {
   position: sticky;
   top: 0;
-  background-color: white;
-  box-shadow: 0px 10px 16px -1px #c7c7c76b;
+  background: linear-gradient(93.6deg, #00B2EF 3.94%, #0D5495 90.93%);
+  color: #fff;
   font-family: "Roboto";
   width: 100%;
   height: 100px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 5vh;
   box-sizing: border-box;
   z-index: 9;
 }
 
+.navLogo {
+  height: 64px;
+  min-width: 64px;
+}
+
 .navContent {
   display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.navContentLeft {
-  height: 100%;
-}
-
-.navContentRight {
-  display: flex;
-  gap: 8px;
   flex-direction: column;
+  gap: 8px;
+}
+
+.navUser {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.navUserIcon {
+  font-size: 2rem;
 }
 
 .navText {
-  font-weight: bold;
-  font-size: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.navLink {
+  color: #b3d4fc !important;
+  text-decoration: underline !important;
+  text-align: right;
+  cursor: pointer;
 }

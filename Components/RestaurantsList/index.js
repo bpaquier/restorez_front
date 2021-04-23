@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 
 const cx = classnames.bind(css);
 
-function RestaurantsList({ list }) {
+function RestaurantsList({ list, deleteRestaurant }) {
   return (
     <Table aria-label="simple table" className={css.table}>
       <TableHead>
@@ -19,6 +19,7 @@ function RestaurantsList({ list }) {
           <TableCell>Enseigne</TableCell>
           <TableCell align="left">Adresse</TableCell>
           <TableCell align="left">Heures d'ouverture</TableCell>
+          <TableCell align="right"></TableCell>
           <TableCell align="right"></TableCell>
         </TableRow>
       </TableHead>
@@ -37,6 +38,17 @@ function RestaurantsList({ list }) {
                 href={`/restaurant/${restaurant?.id_restaurant}`}
               >
                 Voir les services
+              </Button>
+            </TableCell>
+            <TableCell align="right">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  deleteRestaurant(restaurant?.id_restaurant)
+                }}
+              >
+                supprimer
               </Button>
             </TableCell>
           </TableRow>
