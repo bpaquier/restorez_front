@@ -12,31 +12,29 @@ export default function Nav() {
   const { user, setUser } = useContext(userContext);
   const router = useRouter();
 
-  const signOut = () => {
+  const signOut = (e) => {
+    e.preventDefault()
     setUser({});
     router.push('/login')
   };
   return (
     <header className={css.nav}>
+      <a href="/">
+        <img className={css.navLogo} src={'/logo.png'} />
+      </a>
       {user && Object.keys(user).length > 0 ? (
         <div className={css.navContent}>
-          <div className={css.navContentLeft}>
+          <div className={css.navUser}>
             <AccountCircleIcon fontSize="2rem" />
-          </div>
-          <div className={css.navContentRight}>
             <p className={css.navText}>{user?.email}</p>
-            <Button
-              onClick={signOut}
-              size="small"
-              variant="contained"
-              color="default"
-            >
-              Se déconnecter
-            </Button>
           </div>
+          <a onClick={signOut} className={css.navLink}>Se déconnecter</a>
         </div>
       ) : (
-        <p>Bienvenue sur Restorez</p>
+        <div className ={css.navContent}>
+          <p className={css.navText}>Bienvenue sur Restorez</p>
+          <a className={css.navLink} href='/signin'>Créer un compte</a>
+        </div>
       )}
     </header>
   );
